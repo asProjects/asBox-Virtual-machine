@@ -5,9 +5,9 @@ enum class OpCodes :uint8_t
 	print_int = 0x00,
 	print_double = 0x01,
 	print_string = 0x02,
-	print_int = 0x03,
-	print_double = 0x04,
-	print_string = 0x05,
+	read_int = 0x03,
+	read_double = 0x04,
+	read_string = 0x05,
 	get_wisdom = 0x06,
 	exit = 0x07,
 

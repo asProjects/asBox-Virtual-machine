@@ -24,6 +24,9 @@
     <ClInclude Include="implementation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="memory_rep.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="implementation.cpp">

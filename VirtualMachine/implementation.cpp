@@ -1,3 +1,4 @@
+
 void setHealth(int wizard, int amount)
 {
 
@@ -10,7 +11,7 @@ void setWisdom(int wizard, int amount)
 
 void setAgility(int wizard, int amount)
 {
-
+	
 }
 
 int getHealth(int wizard)

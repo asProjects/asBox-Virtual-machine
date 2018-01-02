@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="implementation.h" />
     <ClInclude Include="inst_set.h" />
+    <ClInclude Include="memory_rep.h" />
     <ClInclude Include="vm.h" />
   </ItemGroup>
   <ItemGroup>

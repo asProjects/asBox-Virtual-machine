@@ -2,38 +2,7 @@
 #include"inst_set.h"
 #include"implementation.h"
 
-enum class DataType :uint8_t
-{
-	type_int,
-	type_char,
-	type_double
-};
 
-union Instruction
-{
-	OpCodes opcode;
-	uint8_t bin;
-};
-
-struct Value
-{
-	DataType type;
-
-	union
-	{
-		uint8_t binValue;
-		int32_t intValue;
-		char charValue;
-		double doubleValue;
-	};
-
-	Value(DataType reqType, uint8_t& pData);
-	Value(int32_t val);
-	Value(char val);
-	Value(double val);
-	Value(uint8_t val);
-
-};
 
 Value::Value(DataType reqType, uint8_t& pData):type(reqType)
 {
@@ -91,42 +60,42 @@ void VM::Interpret(vector<Instruction> bytecode)
 	{
 		switch (bytecode[i].opcode)
 		{
-		case OpCodes::inst_load_int:
+		case OpCodes::load_int:
 			push(Value(DataType::type_int, bytecode[*reinterpret_cast<int*>(&bytecode[++i].bin)].bin));
 			i += 3;
 			break;
 
-		case OpCodes::inst_load_char:
+		case OpCodes::load_char:
 			push(Value(DataType::type_char, bytecode[*reinterpret_cast<int*>(&bytecode[++i].bin)].bin));
 			break;
 
-		case OpCodes::inst_load_double:
+		case OpCodes::load_double:
 			push(Value(DataType::type_double, bytecode[*reinterpret_cast<int*>(&bytecode[++i].bin)].bin));
 			i += 7;
 			break;
 
-		case OpCodes::inst_store_int:
+		case OpCodes::store_int:
 			auto a = pop();
 
 			auto intPtr = reinterpret_cast<int*>(&bytecode[*reinterpret_cast<int*>(&bytecode[++i].bin)].bin);
 			*intPtr = a.intValue;
 			break;
 
-		case OpCodes::inst_store_char:
+		case OpCodes::store_char:
 			auto a = pop();
 
 			auto charPtr = reinterpret_cast<char*>(&bytecode[*reinterpret_cast<int*>(&bytecode[++i].bin)].bin);
 			*charPtr = a.charValue;
 			break;
 
-		case OpCodes::inst_store_double:
+		case OpCodes::store_double:
 			auto a = pop();
 
 			auto doublePtr = reinterpret_cast<double*>(&bytecode[*reinterpret_cast<int*>(&bytecode[++i].bin)].bin);
 			*doublePtr = a.doubleValue;
 			break;
 
-		case OpCodes::inst_add:
+		case OpCodes::add:
 			auto b = pop();
 
 			auto a = pop();
@@ -151,7 +120,7 @@ void VM::Interpret(vector<Instruction> bytecode)
 		
 			break;
 
-		case OpCodes::inst_subtract:
+		case OpCodes::subtract:
 			auto b = pop();
 
 			auto a = pop();
@@ -176,7 +145,7 @@ void VM::Interpret(vector<Instruction> bytecode)
 
 			break;
 
-		case OpCodes::inst_multiply:
+		case OpCodes::multiply:
 			auto b = pop();
 
 			auto a = pop();
@@ -201,7 +170,7 @@ void VM::Interpret(vector<Instruction> bytecode)
 
 			break;
 
-		case OpCodes::inst_divide:
+		case OpCodes::divide:
 			auto b = pop();
 
 			auto a = pop();
@@ -228,7 +197,7 @@ void VM::Interpret(vector<Instruction> bytecode)
 
 			break;
 
-		case OpCodes::inst_cond_eq:
+		case OpCodes::cond_eq:
 			auto b = pop();
 
 			auto a = pop();
@@ -237,7 +206,7 @@ void VM::Interpret(vector<Instruction> bytecode)
 			push(a.binValue == b.binValue ? 1 : 0);
 			break;
 
-		case OpCodes::inst_cond_gt:
+		case OpCodes::cond_gt:
 			auto b = pop();
 
 			auto a = pop();
@@ -245,7 +214,7 @@ void VM::Interpret(vector<Instruction> bytecode)
 			push(a.binValue > b.binValue ? 1 : 0);
 			break;
 
-		case OpCodes::inst_cond_lt:
+		case OpCodes::cond_lt:
 			auto b = pop();
 
 			auto a = pop();
@@ -253,7 +222,7 @@ void VM::Interpret(vector<Instruction> bytecode)
 			push(a.binValue < b.binValue ? 1 : 0);
 			break;
 
-		case OpCodes::inst_set_health:
+		case OpCodes::set_health:
 			auto b = pop();
 
 			auto a = pop();

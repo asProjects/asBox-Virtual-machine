@@ -11,9 +11,11 @@ union Instruction;
 
 struct Value;
 
-class VM
+class VMCore
 {
 	stack<Value> dataStack;
+
+
 
 	Value pop();
 	void push(Value val);
